@@ -4,8 +4,8 @@ public class Ellipse {
 
     private final String NAME;
     private Point center;
-    private double width;
-    private double height;
+    private double majorAxis;
+    private double minorAxis;
 
     public Ellipse(String name, Point center, double width, double height) {
         this.NAME = name;
@@ -53,10 +53,16 @@ public class Ellipse {
     public String toString() {
         return String.format("Ellipse %s: center=%s, majorAxis=%.2f, minorAxis=%.2f", NAME, center, majorAxis, minorAxis);
     }
-
     @Override
-    public boolean equals(Ellipse other) {
-        return NAME.equals(other.NAME) && center.equals(other.center) && majorAxis == other.majorAxis && minorAxis == other.minorAxis;
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof Ellipse)) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+        Ellipse otherEllipse = (Ellipse) other;
+        return NAME.equals(otherEllipse.NAME) && center.equals(otherEllipse.center) && majorAxis == otherEllipse.majorAxis && minorAxis == otherEllipse.minorAxis;
     }
 
     @Override

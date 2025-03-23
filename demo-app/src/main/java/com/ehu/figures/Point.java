@@ -29,8 +29,15 @@ public class Point {
     }
 
     @Override
-    public boolean equals(Point other) {
-        return NAME.equals(other.NAME) && x == other.x && y == other.y;
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof Point)) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+        Point otherPoint = (Point) other;
+        return NAME.equals(otherPoint.NAME) && x == otherPoint.x && y == otherPoint.y;
     }
 
     @Override

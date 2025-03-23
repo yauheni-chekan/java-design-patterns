@@ -3,7 +3,7 @@ package com.ehu.actions.impl;
 import com.ehu.actions.GeometricCalculator;
 import com.ehu.figures.Point;
 
-public class PointDistanceCalculator implements GeometricCalculator<Point>   {
+public class PointDistanceCalculator implements GeometricCalculator<Point[]> {
 
     /**
      * Calculates the distance between two points. The distance is the length of the triangle's hypotenuse.
@@ -11,7 +11,7 @@ public class PointDistanceCalculator implements GeometricCalculator<Point>   {
      * @return the distance between the two points
      */
     @Override
-    public double calculate(Point[]  points) {
+    public double calculate(Point[] points) {
         if (points.length != 2) {
             throw new IllegalArgumentException("Two points are required to calculate the distance.");
         }
