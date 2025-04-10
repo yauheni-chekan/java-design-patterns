@@ -1,21 +1,21 @@
-package com.ehu.figures;
+package com.ehu.design_patterns.figure;
 
 public class Ellipse {
 
-    private final String NAME;
+    private final String name;
     private Point center;
     private double majorAxis;
     private double minorAxis;
 
     public Ellipse(String name, Point center, double width, double height) {
-        this.NAME = name;
+        this.name = name;
         this.center = center;
         this.majorAxis = width;
         this.minorAxis = height;
     }
 
     public Ellipse(String name, Point rect1, Point rect2) {
-        this.NAME = name;
+        this.name = name;
         this.center = new Point("Center", (rect1.getX() + rect2.getX()) / 2, (rect1.getY() + rect2.getY()) / 2);
         this.majorAxis = Math.abs(rect1.getX() - rect2.getX());
         this.minorAxis = Math.abs(rect1.getY() - rect2.getY());
@@ -46,12 +46,12 @@ public class Ellipse {
     }
 
     public String getName() {
-        return NAME;
+        return name;
     }
 
     @Override
     public String toString() {
-        return String.format("Ellipse %s: center=%s, majorAxis=%.2f, minorAxis=%.2f", NAME, center, majorAxis, minorAxis);
+        return String.format("Ellipse %s: center=%s, majorAxis=%.2f, minorAxis=%.2f", name, center, majorAxis, minorAxis);
     }
     @Override
     public boolean equals(Object other) {
@@ -62,12 +62,12 @@ public class Ellipse {
             return true;
         }
         Ellipse otherEllipse = (Ellipse) other;
-        return NAME.equals(otherEllipse.NAME) && center.equals(otherEllipse.center) && majorAxis == otherEllipse.majorAxis && minorAxis == otherEllipse.minorAxis;
+        return name.equals(otherEllipse.name) && center.equals(otherEllipse.center) && majorAxis == otherEllipse.majorAxis && minorAxis == otherEllipse.minorAxis;
     }
 
     @Override
     public int hashCode() {
         int multiplier = 31;
-        return multiplier * (multiplier * (multiplier * NAME.hashCode() + center.hashCode()) + Double.hashCode(majorAxis)) + Double.hashCode(minorAxis);
+        return multiplier * (multiplier * (multiplier * name.hashCode() + center.hashCode()) + Double.hashCode(majorAxis)) + Double.hashCode(minorAxis);
     }
 }

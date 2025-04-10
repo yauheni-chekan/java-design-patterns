@@ -1,18 +1,18 @@
-package com.ehu.figures;
+package com.ehu.design_patterns.figure;
 
 public class Point {
-    private final String NAME;
+    private final String name;
     private final double x;
     private final double y;
 
     public Point(String name, double x, double y) {
-        this.NAME = name;
+        this.name = name;
         this.x = x;
         this.y = y;
     }
 
     public String getName() {
-        return NAME;
+        return name;
     }
 
     public double getX() {
@@ -25,7 +25,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return String.format("Point %s: (%.2f, %.2f)", NAME, x, y);
+        return String.format("Point %s: (%.2f, %.2f)", name, x, y);
     }
 
     @Override
@@ -37,12 +37,12 @@ public class Point {
             return true;
         }
         Point otherPoint = (Point) other;
-        return NAME.equals(otherPoint.NAME) && x == otherPoint.x && y == otherPoint.y;
+        return name.equals(otherPoint.name) && x == otherPoint.x && y == otherPoint.y;
     }
 
     @Override
     public int hashCode() {
         int multiplier = 31;
-        return multiplier * (multiplier * NAME.hashCode() + Double.hashCode(x)) + Double.hashCode(y);
+        return multiplier * (multiplier * name.hashCode() + Double.hashCode(x)) + Double.hashCode(y);
     }
 }
