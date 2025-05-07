@@ -1,7 +1,7 @@
 package com.ehu.design_patterns.action.impl;
 
 import com.ehu.design_patterns.action.GeometricCalculator;
-import com.ehu.design_patterns.figure.Ellipse;
+import com.ehu.design_patterns.figure.impl.Ellipse;
 
 public class EllipsePerimeterCalculator implements GeometricCalculator<Ellipse> {
 

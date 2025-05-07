@@ -1,7 +1,7 @@
 package com.ehu.design_patterns.action.impl;
 
 import com.ehu.design_patterns.action.GeometricCalculator;
-import com.ehu.design_patterns.figure.Point;
+import com.ehu.design_patterns.figure.impl.Point;
 
 public class PointDistanceCalculator implements GeometricCalculator<Point[]> {
 

@@ -1,6 +1,8 @@
-package com.ehu.design_patterns.figure;
+package com.ehu.design_patterns.figure.impl;
 
-public class Ellipse {
+import com.ehu.design_patterns.figure.Figure;
+
+public class Ellipse implements Figure {
 
     private final String name;
     private Point center;

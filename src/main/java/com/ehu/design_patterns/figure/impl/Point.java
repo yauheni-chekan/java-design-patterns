@@ -1,6 +1,8 @@
-package com.ehu.design_patterns.figure;
+package com.ehu.design_patterns.figure.impl;
 
-public class Point {
+import com.ehu.design_patterns.figure.Figure;
+
+public class Point implements Figure {
     private final String name;
     private final double x;
     private final double y;
@@ -25,7 +27,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return String.format("Point %s: (%.2f, %.2f)", name, x, y);
+        return String.format("Point %s: (x: %.2f, y: %.2f)", name, x, y);
     }
 
     @Override
