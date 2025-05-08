@@ -4,6 +4,7 @@ import com.ehu.design_patterns.figure.Figure;
 
 public class Ellipse implements Figure {
 
+    private Long id = 0L;
     private final String name;
     private Point center;
     private double majorAxis;
@@ -71,5 +72,15 @@ public class Ellipse implements Figure {
     public int hashCode() {
         int multiplier = 31;
         return multiplier * (multiplier * (multiplier * name.hashCode() + center.hashCode()) + Double.hashCode(majorAxis)) + Double.hashCode(minorAxis);
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 }

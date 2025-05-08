@@ -6,6 +6,18 @@ package com.ehu.design_patterns.figure;
  */
 public interface Figure {
     /**
+     * Gets the id of the figure.
+     * @return the id of the figure
+     */
+    Long getId();
+
+    /**
+     * Sets the id of the figure.
+     * @param id the id of the figure
+     */
+    void setId(Long id);
+
+    /**
      * Gets the name of the figure.
      * @return the name of the figure
      */

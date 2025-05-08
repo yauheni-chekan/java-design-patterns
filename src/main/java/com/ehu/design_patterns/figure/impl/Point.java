@@ -6,6 +6,7 @@ public class Point implements Figure {
     private final String name;
     private final double x;
     private final double y;
+    private Long id = 0L;
 
     public Point(String name, double x, double y) {
         this.name = name;
@@ -46,5 +47,15 @@ public class Point implements Figure {
     public int hashCode() {
         int multiplier = 31;
         return multiplier * (multiplier * name.hashCode() + Double.hashCode(x)) + Double.hashCode(y);
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 }
