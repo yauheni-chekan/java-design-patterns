@@ -9,8 +9,13 @@ import java.util.Optional;
 import com.ehu.design_patterns.figure.Figure;
 import com.ehu.design_patterns.repository.FigureRepository;
 import com.ehu.design_patterns.specification.Specification;
+import com.ehu.design_patterns.specification.SortSpecification;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InMemoryFigureRepository implements FigureRepository {
+    private static final Logger logger = LoggerFactory.getLogger(InMemoryFigureRepository.class);
     private Long idCounter = 0L;
     private final Map<Long, Figure> figures = new HashMap<>();
     
@@ -21,19 +26,35 @@ public class InMemoryFigureRepository implements FigureRepository {
         }
 
         figures.put(figure.getId(), figure);
+        logger.debug("Figure saved: {}", figure);
         return figure;
     }
     
     @Override
-        public List<Figure> find(Specification<Figure> specification) {
+    public List<Figure> find(Specification<Figure> specification) {
         return figures.values().stream()
             .filter(specification::isSatisfiedBy)
+            .toList();
+    }
+
+    @Override
+    public List<Figure> find(Specification<Figure> specification, SortSpecification<Figure> sortSpec) {
+        return figures.values().stream()
+            .filter(specification::isSatisfiedBy)
+            .sorted(sortSpec.getComparator())
             .toList();
     }
     
     @Override
     public List<Figure> findAll() {
         return new ArrayList<>(figures.values());
+    }
+
+    @Override
+    public List<Figure> findAll(SortSpecification<Figure> sortSpec) {
+        return figures.values().stream()
+            .sorted(sortSpec.getComparator())
+            .toList();
     }
     
     @Override
@@ -76,7 +97,6 @@ public class InMemoryFigureRepository implements FigureRepository {
 
     @Override
     public Figure update(Figure figure) {
-
         figures.put(figure.getId(), figure);
         return figure;
     }

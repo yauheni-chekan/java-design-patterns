@@ -78,16 +78,19 @@ public class DefaultFigureFactory implements FigureFactory {
 
     @Override
     public Point createPoint(String name, double x, double y) {
+        logger.debug("Creating point: {} with x: {} and y: {}", name, x, y);
         return new Point(name, x, y);
     }
 
     @Override
     public Ellipse createEllipse(String name, Point center, double width, double height) {
+        logger.debug("Creating ellipse: {} with center: {} and width: {} and height: {}", name, center, width, height);
         return new Ellipse(name, center, width, height);
     }
 
     @Override
     public Ellipse createEllipse(String name, Point point1, Point point2) {
+        logger.debug("Creating ellipse: {} with point1: {} and point2: {}", name, point1, point2);
         return new Ellipse(name, point1, point2);
     }
 

@@ -28,5 +28,5 @@
     </root>
 
     <!-- Logger for specific package -->
-    <logger name="com.ehu" level="DEBUG" />
+    <logger name="com.ehu" level="INFO" />
 </configuration>

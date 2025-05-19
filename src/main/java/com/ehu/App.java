@@ -1,6 +1,5 @@
 package com.ehu;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +9,12 @@ import com.ehu.design_patterns.exception.FigureCreationException;
 import com.ehu.design_patterns.factory.FigureFactory;
 import com.ehu.design_patterns.factory.impl.DefaultFigureFactory;
 import com.ehu.design_patterns.figure.Figure;
+import com.ehu.design_patterns.figure.impl.Ellipse;
+import com.ehu.design_patterns.repository.FigureRepository;
+import com.ehu.design_patterns.repository.impl.InMemoryFigureRepository;
+import com.ehu.design_patterns.specification.Specification;
+import com.ehu.design_patterns.specification.impl.NameSortSpecification;
+import com.ehu.design_patterns.specification.impl.TypeSpecification;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +28,9 @@ public class App {
         DataReader reader = new CsvFileReader();
         // Create the factory with the path to your input file
         FigureFactory factory = new DefaultFigureFactory();
+        FigureRepository repository = new InMemoryFigureRepository();
         logger.info("Reading data from file: {}", FILE_PATH);
         List<String> lines = reader.readData(FILE_PATH);
-        List<Figure> figures = new ArrayList<>();
         Optional<Figure> figure = java.util.Optional.empty();
 
         for (String line : lines) {
@@ -33,17 +38,24 @@ public class App {
                 String[] parts = line.split(",");
                 figure = factory.create(parts);
                 if (figure.isPresent()) {
-                    figures.add(figure.get());
+                    repository.save(figure.get());
+                    logger.info("Created figure: {}", figure.get());
                 }
             } catch (FigureCreationException e) {
                 logger.warn("Error creating figure: {}", e.getMessage());
             }
-            logger.info("Created figure: {}", figure);
         }
 
-        // Process the figures
-        for (Figure existingFigure : figures) {
-            System.out.println(existingFigure);
+        // Retrieve all figures
+        for (Figure existingFigure : repository.findAll()) {
+            logger.info(existingFigure.toString());
+        }
+        // Sort the ellipses by name
+        Specification<Figure> ellipseSpec = new TypeSpecification(Ellipse.class);
+        List<Figure> ellipses = repository.find(ellipseSpec, new NameSortSpecification());
+        logger.info("Ellipses sorted by name:");
+        for (Figure ellipse : ellipses) {
+            logger.info(ellipse.toString());
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.ehu.design_patterns.validator.impl;
 
+import java.util.Arrays;
+
 import com.ehu.design_patterns.validator.FigureValidator;
 
 public class PointValidator implements FigureValidator{
@@ -27,13 +29,13 @@ public class PointValidator implements FigureValidator{
     @Override
     public String getErrorMessage(String[] params) {
         if (params.length != 4) {
-            return "Point must have 4 parameters: type, name, x, y";
+            return String.format("Point must have 4 parameters: type, name, x, y (Actual: %s)", Arrays.toString(params));
         }
         try {
             Double.parseDouble(params[2]);
             Double.parseDouble(params[3]);
         } catch (NumberFormatException e) {
-            return "Point coordinates must be valid numbers";
+            return String.format("Point coordinates must be valid numbers: %s", Arrays.toString(params));
         }
         return "";
     }
