@@ -5,9 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.ehu.design_patterns.figure.Figure;
 import com.ehu.design_patterns.figure.impl.Ellipse;
 import com.ehu.design_patterns.figure.impl.Point;
 import com.ehu.design_patterns.specification.impl.NameSpecification;
+import com.ehu.design_patterns.specification.impl.NameSortSpecification;
+import com.ehu.design_patterns.specification.impl.IdSortSpecification;
+import com.ehu.design_patterns.specification.impl.TypeSpecification;
+
+import java.util.List;
 
 public class InMemoryFigureRepositoryTest {
 
@@ -92,5 +98,75 @@ public class InMemoryFigureRepositoryTest {
         updatedEllipse.setId(ellipse.getId());
         repository.update(updatedEllipse);
         assertEquals(updatedEllipse, repository.findById(ellipse.getId()).get());
+    }
+
+    @Test
+    void testFindAllWithNameSort() {
+        // Create and save figures with different names
+        Point point1 = new Point("Zebra", 0, 0);
+        Point point2 = new Point("Apple", 0, 0);
+        Point point3 = new Point("Banana", 0, 0);
+        
+        repository.save(point1);
+        repository.save(point2);
+        repository.save(point3);
+
+        // Test ascending sort
+        var sortedFigures = repository.findAll(new NameSortSpecification());
+        assertEquals("Apple", sortedFigures.get(0).getName());
+        assertEquals("Banana", sortedFigures.get(1).getName());
+        assertEquals("Zebra", sortedFigures.get(2).getName());
+
+        // Test descending sort
+        sortedFigures = repository.findAll(new NameSortSpecification(false));
+        assertEquals("Zebra", sortedFigures.get(0).getName());
+        assertEquals("Banana", sortedFigures.get(1).getName());
+        assertEquals("Apple", sortedFigures.get(2).getName());
+    }
+
+    @Test
+    void testFindAllWithIdSort() {
+        // Create and save figures
+        Point point1 = new Point("Point1", 0, 0);
+        Point point2 = new Point("Point2", 0, 0);
+        Point point3 = new Point("Point3", 0, 0);
+        
+        repository.save(point1);
+        repository.save(point2);
+        repository.save(point3);
+
+        // Test ascending sort
+        var sortedFigures = repository.findAll(new IdSortSpecification());
+        assertEquals(0L, sortedFigures.get(0).getId());
+        assertEquals(1L, sortedFigures.get(1).getId());
+        assertEquals(2L, sortedFigures.get(2).getId());
+
+        // Test descending sort
+        sortedFigures = repository.findAll(new IdSortSpecification(false));
+        assertEquals(2L, sortedFigures.get(0).getId());
+        assertEquals(1L, sortedFigures.get(1).getId());
+        assertEquals(0L, sortedFigures.get(2).getId());
+    }
+
+    @Test
+    void testFindWithSort() {
+        // Create and save figures
+        Point point1 = new Point("Point1", 0, 0);
+        Point point2 = new Point("Point2", 0, 0);
+        Ellipse ellipse = new Ellipse("Ellipse", new Point("", 0, 0), 10, 5);
+        
+        repository.save(point1);
+        repository.save(point2);
+        repository.save(ellipse);
+
+        // Test finding all points and sorting by name
+        List<Figure> sortedPoints = repository.find(
+            new TypeSpecification(Point.class),
+            new NameSortSpecification()
+        );
+        
+        assertEquals(2, sortedPoints.size());
+        assertEquals("Point1", sortedPoints.get(0).getName());
+        assertEquals("Point2", sortedPoints.get(1).getName());
     }
 }

@@ -71,7 +71,7 @@ class PointValidatorTest {
         String result = validator.getErrorMessage(params);
 
         // Assert
-        assertEquals("Point must have 4 parameters: type, name, x, y", result);
+        assertEquals("Point must have 4 parameters: type, name, x, y (Actual: [POINT, testPoint, 1.0])", result);
     }
 
     @Test
@@ -83,6 +83,6 @@ class PointValidatorTest {
         String result = validator.getErrorMessage(params);
 
         // Assert
-        assertEquals("Point coordinates must be valid numbers", result);
+        assertEquals("Point coordinates must be valid numbers: [POINT, testPoint, invalid, 2.0]", result);
     }
 } 

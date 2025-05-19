@@ -83,7 +83,7 @@ class EllipseValidatorTest {
         String result = validator.getErrorMessage(params);
 
         // Assert
-        assertEquals("Ellipse must have 6 parameters: type, name, x, y, width, height", result);
+        assertEquals("Ellipse must have 6 parameters: type, name, x, y, width, height (Actual: [ELLIPSE, testEllipse, 1.0, 2.0, 3.0])", result);
     }
 
     @Test
@@ -95,7 +95,7 @@ class EllipseValidatorTest {
         String result = validator.getErrorMessage(params);
 
         // Assert
-        assertEquals("Ellipse width and height must be positive", result);
+        assertEquals("Ellipse width and height must be positive: [ELLIPSE, testEllipse, 1.0, 2.0, -3.0, 4.0]", result);
     }
 
     @Test
@@ -107,6 +107,6 @@ class EllipseValidatorTest {
         String result = validator.getErrorMessage(params);
 
         // Assert
-        assertEquals("Invalid parameters", result);
+        assertEquals("Invalid parameters: [ELLIPSE, testEllipse, 1.0, 2.0, invalid, 4.0]", result);
     }
 } 
